@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: py-cryptit
+Source: https://github.com/truenas/py-cryptit
+Comment: Build-depends on package in contrib
+
+Files: *
+Copyright: 2024 Caleb St. John <caleb@ixsystems.com>
+License: LGPL-3.0+
