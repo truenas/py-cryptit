@@ -1,4 +1,4 @@
-Source: cryptit
+Source: py-cryptit
 Section: contrib/python
 Priority: optional
 Maintainer: Caleb St. John <caleb@ixsystems.com>
