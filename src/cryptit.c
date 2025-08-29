@@ -39,47 +39,20 @@ cryptit_impl(PyObject *self, const char *word, const char *salt)
 
 
 static PyObject *
-method_cryptit(PyObject *self, PyObject *const *args, Py_ssize_t nargs)
+method_cryptit(PyObject *self, PyObject *args)
 {
-    PyObject *return_value = NULL;
     const char *word;
     const char *salt;
 
-    if (!_PyArg_CheckPositional("method_cryptit", nargs, 2, 2))
-        goto exit;
-    if (!PyUnicode_Check(args[0])) {
-        _PyArg_BadArgument("method_cryptit", "argument 1", "str", args[0]);
-        goto exit;
-    }
-    Py_ssize_t word_length;
-    word = PyUnicode_AsUTF8AndSize(args[0], &word_length);
-    if (word == NULL)
-        goto exit;
-    if (strlen(word) != (size_t)word_length) {
-        PyErr_SetString(PyExc_ValueError, "embedded null character");
-        goto exit;
-    }
-    if (!PyUnicode_Check(args[1])) {
-        _PyArg_BadArgument("method_cryptit", "argument 2", "str", args[1]);
-        goto exit;
-    }
-    Py_ssize_t salt_length;
-    salt = PyUnicode_AsUTF8AndSize(args[1], &salt_length);
-    if (salt == NULL)
-        goto exit;
-    if (strlen(salt) != (size_t)salt_length) {
-        PyErr_SetString(PyExc_ValueError, "embedded null character");
-        goto exit;
-    }
-	return_value = cryptit_impl(self, word, salt);
+    if (!PyArg_ParseTuple(args, "ss:cryptit", &word, &salt))
+        return NULL;
 
-exit:
-    return return_value;
+    return cryptit_impl(self, word, salt);
 }
 
 
 static PyMethodDef cryptitmethods[] = {
-    {"cryptit", _PyCFunction_CAST(method_cryptit), METH_FASTCALL, cryptit__doc__},
+    {"cryptit", method_cryptit, METH_VARARGS, cryptit__doc__},
     {NULL, NULL, 0, NULL}
 };
 
