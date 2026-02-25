@@ -9,5 +9,12 @@ setup(
             sources=['src/cryptit.c'],
             libraries=['crypt']
         )
-    ]
+    ],
+    packages=['cryptit'],
+    package_dir={
+        'cryptit': 'stubs',
+    },
+    package_data={
+        'cryptit': ['*.pyi', 'py.typed'],
+    }
 )
